@@ -38,7 +38,7 @@ class ChatModel:
         if self.model_url == "https://dashscope.aliyuncs.com/compatible-mode/v1":
             self.extra_body["enable_thinking"] = False
 
-    def chat_with_retry(self, message, retry=4):
+    def chat_with_retry(self, message, retry=2):
         @on_exception(expo, Exception, max_tries=retry)
         def _chat_with_retry(message):
             return self.chat(messages=message)
@@ -73,6 +73,7 @@ class ChatModel:
 
 if __name__ == "__main__":
     from dotenv import load_dotenv
+
     load_dotenv()
     chat_model = ChatModel(
         model_name=os.getenv("MODEL"),
@@ -80,4 +81,6 @@ if __name__ == "__main__":
         model_url=os.getenv("BASE_URL"),
     )
     print(chat_model.list_models())
-    print(chat_model.chat_with_retry([{"role": "user", "content": "Hello, how are you?"}]))
+    print(
+        chat_model.chat_with_retry([{"role": "user", "content": "Hello, how are you?"}])
+    )

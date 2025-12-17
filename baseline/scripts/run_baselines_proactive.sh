@@ -2,4 +2,4 @@ if [ ! -d "./annotated_data/git" ]; then
   echo "unzip git data..."
   bash ./utils/get_git_dir.sh
 fi
-uv run -m baseline.run_conversation_proactive --input_path ./annotated_data/all_annotations.json
+uv run -m baseline.run_conversation_proactive_concur --input_path ./annotated_data/all_annotations.json

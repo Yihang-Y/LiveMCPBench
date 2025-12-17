@@ -7,6 +7,7 @@ import time
 from dotenv import load_dotenv
 from typing import List, Dict, Any, Tuple, Optional
 from openai import OpenAI
+from openai import BadRequestError
 
 load_dotenv()
 
@@ -50,6 +51,8 @@ class ToolMatcher:
             server_desc = match.group(1).strip()
             tool_desc = match.group(2).strip()
             return server_desc, tool_desc
+        else:
+            return text, text
         return None, None
 
     def get_embedding(self, text: str, max_retries: int = 3) -> Optional[List[float]]:
@@ -65,9 +68,14 @@ class ToolMatcher:
                     input=[text],
                     model=self.embedding_model,
                     # dimensions=self.dimensions,
-                    encoding_format="float",
+                    # encoding_format="float",
                 )
                 return response.data[0].embedding
+            except BadRequestError as e:
+                print("400 message:", e.message)
+                if getattr(e, "response", None) is not None:
+                    print("400 response:", e.response.text)
+                raise
             except Exception as e:
                 if attempt < max_retries - 1:
                     wait_time = 2**attempt

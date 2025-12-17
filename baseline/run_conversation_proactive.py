@@ -104,17 +104,39 @@ Note that you can only response to user once, so you should try to provide a com
                 "Session must be an instance of ClientSession"
             )
             response = await session.list_tools()
-            available_tools += [
-                {
-                    "type": "function",
-                    "function": {
-                        "name": tool.name,
-                        "description": tool.description,
-                        "parameters": tool.inputSchema,
-                    },
-                }
-                for tool in response.tools
-            ]
+            available_tools = []
+            for tool in response.tools:
+                if tool.name == "route":
+                    available_tools.append(
+                        {
+                            "type": "function",
+                            "function": {
+                                "name": "tool_request",
+                                "description": "Submit a request describing what tool or functionality is needed.",
+                                "parameters": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "A detailed description of the tool or function the user needs."
+                                        }
+                                    },
+                                    "required": ["description"]
+                                },
+                            },
+                        }
+                    )
+                else:
+                    available_tools.append(
+                        {
+                            "type": "function",
+                            "function": {
+                                "name": tool.name,
+                                "description": tool.description,
+                                "parameters": tool.inputSchema,
+                            },
+                        }
+                    )
         final_text = []
         stop_flag = False
         try:
@@ -167,10 +189,14 @@ Note that you can only response to user once, so you should try to provide a com
                             logger.info(
                                 f"LLM is calling tool: {tool_name}({tool_args})"
                             )
-                            # timeout
-                            result = await asyncio.wait_for(
-                                session.call_tool(tool_name, tool_args), timeout=300
-                            )
+                            if tool_name == "tool_request":
+                                description = tool_args["description"]
+                                result = await asyncio.wait_for(session.call_tool("route", {"query": description}), timeout=300)
+                            else:
+                                # timeout
+                                result = await asyncio.wait_for(
+                                    session.call_tool(tool_name, tool_args), timeout=300
+                                )
                         except asyncio.TimeoutError:
                             logger.error(f"Tool call {tool_name} timed out.")
                             result = "Tool call timed out."
@@ -225,6 +251,7 @@ async def main(args):
             if task_id in exist_ids:
                 continue
             query = entry["Question"]
+            print("query:", query)
             try:
                 logger.info("Before process_query")
                 response, messages = await client.process_query(query, None)

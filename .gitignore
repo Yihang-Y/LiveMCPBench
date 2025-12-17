@@ -17,3 +17,15 @@ readme/
 test/*
 not_use/
 ./annotated_data/git/
+
+ProactiveLLM_SFT/
+merged_model/
+local_*
+annotated_data/
+
+*.xlsx
+*.pdf
+*.docx
+*.pptx
+*.json
+*.csv

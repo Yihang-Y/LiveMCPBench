@@ -1,15 +1,119 @@
 [
   {
-    "task_id": "dda8ea55-629c-4ae8-ab87-0c81477ae615",
-    "Question": "I'm planning a trip to the Forbidden City in Beijing, show me where to park and what's interesting to do within 1km distance?",
+    "task_id": "2b96c022-a2db-47a5-981a-03cc6ad8f95e",
+    "Question": "Run a full reconnaissance on www.baidu.com. Give me a markdown report on /root/markdown/baidu_report.md with whois information and sitemap.",
+    "answers": "file /root/markdown/baidu_report.md",
+    "category": "Office",
+    "file_name": "",
+    "Annotator Metadata": {
+        "Steps": "1. Looksup whois information about the domain\n2. Fetch and parse the sitemap tree from the website URL\n3. Create and write a markdown report on /root/markdown/baidu_report.md",
+        "Number of steps": "3",
+        "Tools": "1. whois_domain\n2. get_sitemap_tree\n3. write_file",
+        "Number of tools": "3"
+    }
+},
+{
+    "task_id": "afd60e13-2448-4c0f-9aae-2054b91f1ac1",
+    "Question": "I'm driving an EV with a 300km range from Beijing to Chengdu. Can you map out a route with all the charging stations I'll need?",
     "answers": "",
     "category": "Travel",
     "file_name": "",
     "Annotator Metadata": {
-      "Steps": "1. convert the address of Location into precise geographic coordinates.\n2. find parking facilities within a 1-kilometer radius of Location, filtering for both surface and multi-storey parking options, and provide details such as capacity, fee structure, and access restrictions. \n3. discover nearby points of interest and amenities within the same radius, focusing on categories such as restaurants, shops, and tourist attractions.\n4. convert the coordinates of each identified parking facility and point of interest back into human-readable addresses to facilitate easy navigation and planning. ",
-      "Number of steps": "4",
-      "Tools": "1. geocode_address\n2. find_parking_facilities\n3. find_nearby_places\n4. reverse_geocode",
-      "Number of tools": "4"
+        "Steps": "1. Convert all place names to geographic coordinates\n2. Calculate detailed route directions between two geographic points\n3. Find electric vehicle charging stations acctording to EV range \n4. Convert geographic coordinates to a detailed address and location description",
+        "Number of steps": "4",
+        "Tools": "1. geocode_address\n2. get_route_directions\n3. find_ev_charging_stations\n4. reverse_geocode",
+        "Number of tools": "4"
     }
-  }
+},
+{
+    "task_id": "88ccea26-01f6-4db6-ba95-6b2a73c0488b",
+    "Question": "Analyze Apple's stock for the past year and summarize it in a PPT in /root/ppt/apple.pptx.",
+    "answers": "file /root/ppt/apple.pptx",
+    "category": "Finance",
+    "file_name": "",
+    "Annotator Metadata": {
+        "Steps": "1. get information for the company\n2. create a ppt",
+        "Number of steps": "2",
+        "Tools": "1. get_historical_stock_prices\n2. get_news\n3. get_recommendations\n4. create_presentation\n5. save_presentation",
+        "Number of tools": "5"
+    }
+},
+{
+    "task_id": "6b7fc66e-fe96-4403-9a52-df5afa53ab68",
+    "Question": "Generate a research summary for NCT04280705 and save it as Markdown to /root/markdown/NCT04280705.md.",
+    "answers": "file /root/markdown/NCT04280705.md",
+    "category": "Office",
+    "file_name": "",
+    "Annotator Metadata": {
+        "Steps": "1. Retrieves publications and other references associated with a single clinical trial identified by its NCT ID\n2. Generate a markdown report\n3. Write it to the path",
+        "Number of steps": "3",
+        "Tools": "1. trial_references\n2. write_file",
+        "Number of tools": "2"
+    }
+},
+{
+    "task_id": "be3f2275-15a4-4e05-b3cb-b0eeb9109d3a",
+    "Question": "Help me check the high-speed train tickets from Beijing to Shanghai on next Wednesday.",
+    "answers": "",
+    "category": "Travel",
+    "file_name": "",
+    "Annotator Metadata": {
+        "Steps": "1. Get current time and calculate next Wednesday's date\n2. Query the station_code of a city by its Chinese name\n3. Check 12306 remaining ticket information.",
+        "Number of steps": "3",
+        "Tools": "1. get_current_time\n2. get-station-code-of-citys\n3. get-tickets",
+        "Number of tools": "3"
+    }
+},
+{
+    "task_id": "0b21b741-440b-460e-8bad-fa70f99dd01c",
+    "Question": "What are the 八字 of a boy born on August 8, 2008 at 11:00 am?",
+    "answers": "",
+    "category": "Leisure",
+    "file_name": "",
+    "Annotator Metadata": {
+        "Steps": "1. Get information about 八字 based on time and gender.",
+        "Number of steps": "1",
+        "Tools": "1. getBaziDetail",
+        "Number of tools": "1"
+    }
+},
+{
+    "task_id": "230fb273-b316-4a8f-9297-89ce5558bc6c",
+    "Question": "Find today's LeetCode Daily Challenge and generate a detailed markdown document in /root/markdown/leetcode_daily.md that provides a comprehensive walkthrough of the problem. ",
+    "answers": "file /root/markdown/leetcode_daily.md",
+    "category": "Lifestyle",
+    "file_name": "",
+    "Annotator Metadata": {
+        "Steps": "1. get leetcode daily challenge\n2. generate a comprehensive walkthrough of the problem\n3. write it to the path",
+        "Number of steps": "3",
+        "Tools": "1. get-daily-challenge\n2. write_file",
+        "Number of tools": "2"
+    }
+},
+{
+    "task_id": "567c79c3-3afb-4979-90cf-88ca49cb701d",
+    "Question": "Help me write a quick start tutorial for Ant Design in markdown at /root/markdown/antd_tutorial.md.",
+    "answers": "",
+    "category": "Office",
+    "file_name": "",
+    "Annotator Metadata": {
+        "Steps": "1. list all the components in Ant Design.\n2. chose the proper components to introduce to the beginer.\n3. get the detailed information for these compoents.\n4. generate a quick start tutorial\n5. write it to the path",
+        "Number of steps": "5",
+        "Tools": "1. list-components\n2. list-component-examples\n3. get-component-docs\n4. write_file",
+        "Number of tools": "4"
+    }
+},
+{
+    "task_id": "4de2e9f7-f3ea-4d02-8532-0a1b0b530609",
+    "Question": "Read the sales data under /root/excel/Local_Electronic_Sales.xlsx, plot it as a bar chart by month and save it in /root/figs/sale.png",
+    "answers": "file /root/figs/sale.png",
+    "category": "Office",
+    "file_name": "/root/excel/Local_Electronic_Sales.xlsx",
+    "Annotator Metadata": {
+        "Steps": "1. read the excel file to get the data\n2. draw the bar chart",
+        "Number of steps": "2",
+        "Tools": "1. excel_read_sheet\n2. generate_bar_chart",
+        "Number of tools": "2"
+    }
+}
 ]
